@@ -2,10 +2,10 @@ import Clases.Operador;
 
 public class Estado implements Comparable<Estado> {
 
-    /* static Estado with the target objective */
+  
     public static final Estado objetivo = new Estado(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 
-    public static final Operador<Estado> up = new Operador<Estado>() { /* UP MOVEMENT */
+    public static final Operador<Estado> up = new Operador<Estado>() { 
         @Override
         public Estado run(Estado t) {
             if (t.pos_hole < 4)
@@ -15,7 +15,7 @@ public class Estado implements Comparable<Estado> {
             return res;
         }
     };
-    public static final Operador<Estado> down = new Operador<Estado>() { /* DOWN MOVEMENT */
+    public static final Operador<Estado> down = new Operador<Estado>() { 
         @Override
         public Estado run(Estado t) {
             if (t.pos_hole >= N - 4)
@@ -25,7 +25,7 @@ public class Estado implements Comparable<Estado> {
             return res;
         }
     };
-    public static final Operador<Estado> left = new Operador<Estado>() { /* LEFT MOVEMENT */
+    public static final Operador<Estado> left = new Operador<Estado>() { 
         @Override
         public Estado run(Estado t) {
             if (t.pos_hole % 4 == 0)
@@ -35,7 +35,7 @@ public class Estado implements Comparable<Estado> {
             return res;
         }
     };
-    public static final Operador<Estado> right = new Operador<Estado>() { /* RIGHT MOVEMENT */
+    public static final Operador<Estado> right = new Operador<Estado>() { 
         @Override
         public Estado run(Estado t) {
             if (t.pos_hole % 4 == 3)
@@ -82,16 +82,13 @@ public class Estado implements Comparable<Estado> {
         }
     };
 
-    private static final int N = 16; /* number of cells of array */
-    private int pos_hole; /* hole position */
-    private int tiles[] = new int[N]; /*
-                                       * values of the tiles, from zero
-                                       * (for the hole) to N-1.
-                                       */
-    private Estado parent; /* previous state */
-    private int depth; /* depth of state */
+    private static final int N = 16; 
+    private int pos_hole; 
+    private int tiles[] = new int[N]; 
+    private Estado parent; 
+    private int depth; 
 
-    /* private function to check the parameters to constructor */
+    
     private static boolean check(int[] f) {
         if (f.length != N)
             return false;
@@ -104,7 +101,7 @@ public class Estado implements Comparable<Estado> {
         return true;
     }
 
-    /* private function to do common initialization in both constructors */
+    
     private void init(Estado p) {
         parent = p;
         depth = (p != null)
@@ -112,11 +109,7 @@ public class Estado implements Comparable<Estado> {
                 : 0;
     }
 
-    /*
-     * private method to interchange the tiles at pos_hole and pos_hole+off.
-     * off can be positive or negative, depending on the element to inter-
-     * change.
-     */
+  
     private void interchange(int off) {
         int new_hole = pos_hole + off;
         int x = tiles[pos_hole];
@@ -139,8 +132,8 @@ public class Estado implements Comparable<Estado> {
             tiles[i] = f[i];
             if (f[i] == 0)
                 pos_hole = i;
-        } /* for */
-        init(null); /* no previous state */
+        } 
+        init(null);
     }
 
     private Estado(Estado p) {
@@ -148,7 +141,7 @@ public class Estado implements Comparable<Estado> {
         for (int i = 0; i < N; i++) {
             tiles[i] = p.tiles[i];
         }
-        init(p); /* previous state is p */
+        init(p); 
     }
 
     /**
