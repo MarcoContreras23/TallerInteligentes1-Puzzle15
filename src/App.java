@@ -11,7 +11,6 @@ public class App {
     private static long milisInicio;
     private static int nodosExplorados;
 
-
     private static Estado busquedaHeuristicaManhattan(Estado inicial) {
         Conjunto<Estado> db = new Conjunto<Estado>();
         ColaPrioridad<Estado> queue = new ColaPrioridad<Estado>(
@@ -30,20 +29,20 @@ public class App {
                 if (e.esObjetivo()) {
                     System.out.print("Soluci�n\n" + e.solucion());
                     return e;
-                } 
+                }
                 for (Operador<Estado> op : Estado.moves) {
                     Estado n = op.run(e);
-                   
+
                     if ((n != null) && (db.get(n) == null)) {
                         queue.add(n);
                         db.add(n);
-                    } 
-                } 
-            } 
+                    }
+                }
+            }
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
-        } 
-        return null; 
+        }
+        return null;
     }
 
     private static void printSolucion(String algoritmo, Estado e) {
@@ -53,7 +52,6 @@ public class App {
         if (e == null) {
             System.out.println("No se ha encontrado la solución.");
         } else {
-            System.out.println(algoritmo);
             System.out.println("     Profundidad: " + e.getProfundidad());
         }
 
@@ -77,13 +75,13 @@ public class App {
             }
         }
         ini = new Estado(iEst);
-        Estado inicial = ini;
-        busquedaHeuristicaManhattan(inicial);
+        Estado inicial = ini,
+                result = null;
+        milisInicio = System.currentTimeMillis();
+        result = busquedaHeuristicaManhattan(inicial);
 
         String algoritmo = "Busqueda con heuristica de distancias Manhattan";
 
-        milisInicio = System.currentTimeMillis();
-
-        printSolucion(algoritmo, inicial);
+        printSolucion(algoritmo, result);
     }
 }
